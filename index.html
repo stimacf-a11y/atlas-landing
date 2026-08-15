@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATLAS - AI Real Estate Acquisition Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: #0B1B33;
+            --gold: #C3A15F;
+            --white: #FFFFFF;
+            --light-gray: #F5F5F5;
+            --text: #0B1B33;
+        }
+
+        body {
+            font-family: 'Calibri', 'Cambria', serif;
+            color: var(--text);
+            line-height: 1.6;
+            background-color: var(--white);
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--navy) 0%, #0f2847 100%);
+            color: var(--white);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .star {
+            color: var(--gold);
+            font-size: 28px;
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--gold);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--navy) 0%, #0f2847 100%);
+            color: var(--white);
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-family: 'Cambria', serif;
+            margin-bottom: 20px;
+            font-weight: normal;
+            letter-spacing: 3px;
+        }
+
+        .hero-accent {
+            color: var(--gold);
+            font-size: 18px;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 40px;
+            line-height: 1.8;
+            opacity: 0.95;
+        }
+
+        .cta-button {
+            background: var(--gold);
+            color: var(--navy);
+            padding: 14px 40px;
+            border: none;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Calibri', sans-serif;
+            border-radius: 3px;
+        }
+
+        .cta-button:hover {
+            background: #d4b47f;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(195, 161, 95, 0.3);
+        }
+
+        .features {
+            padding: 80px 20px;
+            background-color: var(--light-gray);
+        }
+
+        .features-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 42px;
+            font-family: 'Cambria', serif;
+            margin-bottom: 60px;
+            color: var(--navy);
+            letter-spacing: 2px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 40px;
+            border-left: 4px solid var(--gold);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            color: var(--gold);
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            font-size: 20px;
+            color: var(--navy);
+            margin-bottom: 15px;
+            font-family: 'Cambria', serif;
+        }
+
+        .feature-card p {
+            color: #666;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .technology {
+            padding: 80px 20px;
+            background: var(--white);
+        }
+
+        .tech-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .tech-text h2 {
+            font-size: 36px;
+            font-family: 'Cambria', serif;
+            color: var(--navy);
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .tech-text p {
+            color: #555;
+            margin-bottom: 15px;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        .tech-stack {
+            list-style: none;
+            margin-top: 25px;
+        }
+
+        .tech-stack li {
+            padding: 10px 0;
+            color: var(--text);
+            font-size: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .tech-stack li:before {
+            content: "★ ";
+            color: var(--gold);
+            margin-right: 10px;
+        }
+
+        .tech-illustration {
+            background: linear-gradient(135deg, var(--navy) 0%, #0f2847 100%);
+            padding: 60px;
+            border-radius: 8px;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .tech-illustration h3 {
+            font-size: 28px;
+            font-family: 'Cambria', serif;
+            margin-bottom: 20px;
+            color: var(--gold);
+        }
+
+        .team {
+            padding: 80px 20px;
+            background-color: var(--light-gray);
+        }
+
+        .team-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .team-info {
+            background: var(--white);
+            padding: 50px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .team-info h3 {
+            font-size: 28px;
+            font-family: 'Cambria', serif;
+            color: var(--navy);
+            margin-bottom: 15px;
+        }
+
+        .team-info p {
+            color: #666;
+            line-height: 1.8;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .credentials {
+            color: var(--gold);
+            font-weight: bold;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        footer {
+            background: var(--navy);
+            color: var(--white);
+            padding: 40px 20px;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-brand {
+            font-size: 20px;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+
+        .footer-brand .star {
+            color: var(--gold);
+        }
+
+        .footer-text {
+            font-size: 14px;
+            opacity: 0.8;
+            line-height: 1.8;
+        }
+
+        .divider {
+            width: 60px;
+            height: 2px;
+            background: var(--gold);
+            margin: 30px auto;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .tech-content {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <span class="star">★</span>
+                <span>ATLAS</span>
+            </div>
+            <nav>
+                <a href="#features">Features</a>
+                <a href="#technology">Technology</a>
+                <a href="#team">Team</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-accent">AI-Powered Real Estate</div>
+            <h1>ATLAS</h1>
+            <p>Transform real estate acquisition with intelligent machine learning. Match properties with genuine buyer intent using advanced AI algorithms.</p>
+            <button class="cta-button">Request Access</button>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="features-content">
+            <h2 class="section-title">Intelligent Capabilities</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Property Intent Scoring</h3>
+                    <p>Proprietary AI engine calculates intent scores (0-100) based on 45+ behavioral and financial signals. Identify genuine buyers in seconds.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔗</div>
+                    <h3>Bank-Linked Verification</h3>
+                    <p>PSD2-compliant bank linking reveals financial readiness. No more wasted time on unqualified leads.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>Multi-Agent Automation</h3>
+                    <p>Scout discovers opportunities. Director routes qualified leads. Consultor learns and optimizes. Fully automated acquisition pipeline.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Cross-Platform Access</h3>
+                    <p>Native iOS/Android apps, web dashboard, and API integration. Work anywhere, anytime.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Enterprise Security</h3>
+                    <p>GDPR, PSD2, and EU AI Act compliant. End-to-end encryption and multi-region redundancy.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Real-Time Analytics</h3>
+                    <p>Dashboard insights on conversion rates, lead quality, and market trends. Data-driven decisions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="technology" id="technology">
+        <div class="tech-content">
+            <div class="tech-text">
+                <h2>Built for Scale</h2>
+                <p>ATLAS runs on enterprise-grade AWS infrastructure with 99.99% uptime SLA. Designed to handle millions of properties and users simultaneously.</p>
+                
+                <h3 style="color: var(--navy); margin-top: 30px; font-family: 'Cambria', serif; font-size: 20px;">Technology Stack</h3>
+                <ul class="tech-stack">
+                    <li>Python + FastAPI + LangChain (AI Agents)</li>
+                    <li>Node.js + Express + TypeScript (Backend API)</li>
+                    <li>React Native (iOS/Android)</li>
+                    <li>Next.js (Web Dashboard)</li>
+                    <li>PostgreSQL + Redis + Elasticsearch (Databases)</li>
+                    <li>AWS ECS Fargate + Lambda (Compute)</li>
+                    <li>OpenAI GPT-4 (Language Models)</li>
+                </ul>
+            </div>
+            
+            <div class="tech-illustration">
+                <h3>€1.44M</h3>
+                <p style="font-size: 14px; margin-top: 10px;">Year 1 Revenue Projection</p>
+                <div class="divider"></div>
+                <p style="font-size: 12px; margin-top: 20px;">94% EBITDA Margin | Break-even Month 6.5</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="team" id="team">
+        <div class="team-content">
+            <h2 class="section-title">Leadership</h2>
+            <div class="team-info">
+                <h3>Fernando Stimac Jaén</h3>
+                <p class="credentials">Founder & CEO</p>
+                <p>30 years in real estate, LATAM export, and FMCG across Diageo, Pernod Ricard, JBS, and ConAgra. OpenAI certified in AI Foundations and Agents & Workflows.</p>
+                <p>100% focus on ATLAS product vision and business direction. Backed by dedicated engineering team.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span class="star">★</span> ATLAS
+            </div>
+            <div class="divider"></div>
+            <div class="footer-text">
+                <p><strong>Caelum Private Equity S.L.U.</strong></p>
+                <p>NIF: B22718514 | Madrid, Spain</p>
+                <p style="margin-top: 20px; font-size: 12px;">© 2025 ATLAS. All rights reserved. | AI-Powered Real Estate Acquisition Platform</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
