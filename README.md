@@ -33,16 +33,25 @@ ATLAS is an intelligent real estate acquisition platform powered by machine lear
 
 ---
 
-## Landing Page Deployment (this repo)
+## Landing Page (this repo)
 
-This repository hosts the static marketing landing page (`caelum-website-preview.html`, `index.html`) — separate from the main ATLAS platform infrastructure on AWS described above. It deploys to **Google Cloud Run** via **Cloud Build**, independent of the AWS stack.
+This repository hosts the Caelum Private Equity marketing site — a TanStack Start (React 19 + Vite + Nitro) app with animated hero (Three.js shader gradient + GSAP), a liquid-glass CTA, and ES/EN/DE localization. It's separate from the main ATLAS platform infrastructure on AWS described above, and deploys to **Google Cloud Run** via **Cloud Build**, independent of the AWS stack.
 
 **GCP project:** `brilliant-dryad-506612-j0` ("My First Project")
 **Region:** `europe-southwest1` (Madrid)
 
+### Local development
+
+```bash
+bun install
+bun run dev      # dev server
+bun run build    # production build → .output/
+node .output/server/index.mjs   # run the built server (respects $PORT)
+```
+
 ### How it works
 
-1. `Dockerfile` builds an `nginx:alpine` image serving the static HTML on port 8080 (required by Cloud Run).
+1. `Dockerfile` (multi-stage): installs deps and runs `bun run build` — which produces a standalone Node server at `.output/server/index.mjs` (Nitro `node-server` preset, set in `vite.config.ts`) — then copies just `.output/` into a slim `node:22-slim` runtime image listening on port 8080 (required by Cloud Run).
 2. `cloudbuild.yaml` defines a 3-step pipeline: build the Docker image → push it to Artifact Registry → deploy to Cloud Run.
 3. A Cloud Build trigger (`caelum-deploy`) watches the `main` branch of this GitHub repo and runs the pipeline automatically on every push.
 

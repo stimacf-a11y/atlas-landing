@@ -1,9 +1,17 @@
-FROM nginx:alpine
+FROM oven/bun:1-slim AS build
+WORKDIR /app
 
-COPY index.html caelum-website-preview.html /usr/share/nginx/html/
+COPY package.json bun.lock* ./
+RUN bun install
+
+COPY . .
+RUN bun run build
+
+FROM node:22-slim AS run
+WORKDIR /app
+ENV NODE_ENV=production
+
+COPY --from=build /app/.output ./.output
 
 EXPOSE 8080
-
-RUN sed -i 's/listen\s*80;/listen 8080;/' /etc/nginx/conf.d/default.conf
-
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["node", ".output/server/index.mjs"]
