@@ -1,5 +1,23 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowUpRight } from "lucide-react";
+import {
+  ArrowUpRight,
+  Brain,
+  Server,
+  Building2,
+  ShieldCheck,
+  Zap,
+  FlaskConical,
+  Microscope,
+  Layers,
+  Clock,
+  HeartHandshake,
+  MapPin,
+  ListChecks,
+  Lock,
+  Camera,
+  Globe2,
+  Workflow,
+} from "lucide-react";
 import logoAsset from "@/assets/cpexs-logo.png.asset.json";
 import portraitAsset from "@/assets/fernando.png.asset.json";
 import { CblxSection } from "@/components/CblxSection";
@@ -13,6 +31,12 @@ export const Route = createFileRoute("/")({
   head: () => localeHead("es"),
   component: HomePage,
 });
+
+// Icons are matched to content by array index (same order across every
+// locale file), not by title text, so they stay correct in ES/EN/DE.
+const FOCUS_ICONS = [Brain, Server, Building2, ShieldCheck, Zap, FlaskConical];
+const PRINCIPLE_ICONS = [Microscope, Layers, Clock, HeartHandshake];
+const ATLAS_CAPABILITY_ICONS = [MapPin, ListChecks, Lock, Camera, Globe2, Workflow];
 
 function SectionLabel({ index, children }: { index: string; children: string }) {
   return (
@@ -94,18 +118,24 @@ export function HomePage() {
           </p>
 
           <div className="mt-16 grid grid-cols-1 border-t border-l border-border md:grid-cols-2 lg:grid-cols-3">
-            {t.focus.items.map((item, i) => (
+            {t.focus.items.map((item, i) => {
+              const Icon = FOCUS_ICONS[i % FOCUS_ICONS.length];
+              return (
               <article
                 key={item.title}
                 className="border-r border-b border-border p-8 transition-colors hover:bg-surface"
               >
-                <span className="font-mono text-[10px] tracking-[0.2em] text-accent">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-[10px] tracking-[0.2em] text-accent">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <Icon className="size-5 text-accent" strokeWidth={1.5} aria-hidden="true" />
+                </div>
                 <h3 className="mt-5 text-xl font-medium">{item.title}</h3>
                 <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{item.body}</p>
               </article>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -118,14 +148,18 @@ export function HomePage() {
               <h2 className="mt-3 text-3xl font-semibold md:text-4xl">{t.principles.heading}</h2>
             </div>
             <div className="grid gap-12 md:grid-cols-2 lg:w-2/3">
-              {t.principles.items.map((item) => (
-                <div key={item.title} className="border-l border-border pl-6">
-                  <h3 className="font-display text-sm font-semibold tracking-[0.12em] uppercase">
-                    {item.title}
-                  </h3>
-                  <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{item.body}</p>
-                </div>
-              ))}
+              {t.principles.items.map((item, i) => {
+                const Icon = PRINCIPLE_ICONS[i % PRINCIPLE_ICONS.length];
+                return (
+                  <div key={item.title} className="border-l border-border pl-6">
+                    <Icon className="size-5 text-accent" strokeWidth={1.5} aria-hidden="true" />
+                    <h3 className="mt-4 font-display text-sm font-semibold tracking-[0.12em] uppercase">
+                      {item.title}
+                    </h3>
+                    <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{item.body}</p>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -184,12 +218,16 @@ export function HomePage() {
           </p>
 
           <div className="mt-16 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {t.atlas.capabilities.map((cap) => (
-              <article key={cap.title} className="hairline-card p-7">
-                <h3 className="text-base font-medium">{cap.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{cap.body}</p>
-              </article>
-            ))}
+            {t.atlas.capabilities.map((cap, i) => {
+              const Icon = ATLAS_CAPABILITY_ICONS[i % ATLAS_CAPABILITY_ICONS.length];
+              return (
+                <article key={cap.title} className="hairline-card p-7">
+                  <Icon className="size-5 text-accent" strokeWidth={1.5} aria-hidden="true" />
+                  <h3 className="mt-4 text-base font-medium">{cap.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{cap.body}</p>
+                </article>
+              );
+            })}
           </div>
 
           <div className="mt-16 border-l-2 border-accent bg-surface/50 p-8 md:p-10">
