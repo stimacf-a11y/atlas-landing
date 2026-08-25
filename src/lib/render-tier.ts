@@ -8,8 +8,11 @@ export interface TierProfile {
   animateCamera: boolean;
 }
 
+// animateCamera is true on every tier — only "none" (reduced motion, no WebGL,
+// or a genuinely underpowered device) turns motion off. A "low" tier still
+// moves; it just renders at a lower pixel density and shader density.
 export const TIER_PROFILES: Record<Exclude<RenderTier, "none">, TierProfile> = {
-  low: { pixelDensity: 0.6, uDensity: 0.9, uStrength: 2.6, grain: "off", animateCamera: false },
+  low: { pixelDensity: 0.75, uDensity: 0.9, uStrength: 2.6, grain: "off", animateCamera: true },
   medium: { pixelDensity: 1, uDensity: 1.15, uStrength: 3.4, grain: "off", animateCamera: true },
   high: { pixelDensity: 1.5, uDensity: 1.3, uStrength: 4, grain: "on", animateCamera: true },
 };
@@ -39,8 +42,11 @@ export function detectRenderTier(): RenderTier {
   }
 
   const width = window.innerWidth;
-  const cores = nav.hardwareConcurrency ?? 4;
-  const memory = nav.deviceMemory ?? 4;
+  // Browsers commonly cap or omit hardwareConcurrency/deviceMemory for privacy
+  // (Safari and Firefox often report exactly 4, or nothing at all) — treat a
+  // missing/low-but-plausible value as "unknown", not "weak device".
+  const cores = nav.hardwareConcurrency ?? 8;
+  const memory = nav.deviceMemory ?? 8;
   const dpr = window.devicePixelRatio || 1;
   const coarse = window.matchMedia("(pointer: coarse)").matches;
 
@@ -48,8 +54,8 @@ export function detectRenderTier(): RenderTier {
   if (width < 480) return "none";
   if (cores <= 2 || memory <= 2) return "none";
 
-  if (coarse || width < 1024 || dpr > 2.5 || cores <= 4 || memory <= 4) return "low";
-  if (width < 1440 || cores <= 6) return "medium";
+  if ((coarse && width < 1024) || dpr > 3) return "low";
+  if (width < 1440 || cores <= 4) return "medium";
   return "high";
 }
 

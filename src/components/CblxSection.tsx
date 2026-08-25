@@ -1,4 +1,18 @@
-import { ChevronDown, ChevronRight, Info } from "lucide-react";
+import {
+  ChevronDown,
+  ChevronRight,
+  Info,
+  Trash2,
+  Truck,
+  LineChart,
+  Route,
+  LayoutDashboard,
+  Network,
+} from "lucide-react";
+
+// Icons are matched to content by array index (same order across every
+// locale file), not by title text, so they stay correct in ES/EN/DE.
+const STACK_ICONS = [Trash2, Truck, LineChart, Route, LayoutDashboard, Network];
 import { useLocation } from "@tanstack/react-router";
 import { localeFromPath } from "@/lib/i18n-seo";
 import { CBLX_EVOLUTION_COPY } from "@/lib/cblx-evolution";
@@ -89,16 +103,22 @@ export function CblxSection() {
         </div>
 
         <div className="mt-16 grid grid-cols-1 border-t border-l border-border md:grid-cols-2 lg:grid-cols-3">
-          {t.stack.map((item) => (
+          {t.stack.map((item, i) => {
+            const Icon = STACK_ICONS[i % STACK_ICONS.length];
+            return (
             <article
               key={item.id}
               className="border-r border-b border-border p-8 transition-colors hover:bg-surface"
             >
-              <span className="font-mono text-[10px] tracking-[0.2em] text-accent">{item.id}</span>
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-[10px] tracking-[0.2em] text-accent">{item.id}</span>
+                <Icon className="size-5 text-accent" strokeWidth={1.5} aria-hidden="true" />
+              </div>
               <h3 className="mt-5 text-xl font-medium">{item.title}</h3>
               <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{item.body}</p>
             </article>
-          ))}
+            );
+          })}
         </div>
 
         <div className="mt-16 grid gap-10 lg:grid-cols-2">
