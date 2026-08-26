@@ -1,11 +1,15 @@
 ---
 name: build-landing-page
-description: Add a new landing page or microsite to this TanStack Start app, reusing the existing design system, components, and localization pattern instead of starting from scratch. Use when asked to create a new landing page, campaign page, product page, or "otra web"/variant of the site within this repo. Not for editing the existing single-page content (edit src/lib/content/*.ts for that). Any motion the new page needs is built with the animate skill and checked against review-animations before the page is considered done.
+description: Add a new landing page or microsite to this TanStack Start app, reusing the existing design system, components, and localization pattern instead of starting from scratch. Use when asked to create a new landing page, campaign page, product page, or "otra web"/variant of the site within this repo. Not for editing the existing single-page content (edit src/lib/content/*.ts for that). Holds the result to emil-design-eng's craft bar throughout, and any motion the page needs is built with the animate skill and checked against review-animations before the page is considered done.
 ---
 
 # Building a New Landing Page in This Repo
 
 This repo (`atlas-landing`) is a single TanStack Start app that currently serves one marketing site (the Caelum Private Equity / ATLAS page) in three locales. "Making another web" here means adding another route that reuses the same design system and components — not spinning up a separate project.
+
+## Design bar
+
+Hold the new page to `emil-design-eng`'s craft philosophy throughout, not just at review time: every pressable element gets `:active` press feedback (`scale(0.97)`, never a static button), nothing enters from `scale(0)`, popovers/tooltips scale from their trigger, and the unseen details (asymmetric enter/exit timing, blur to mask an awkward crossfade, stagger on group entrances) are what separate "it works" from "it feels right." This applies to layout and component decisions as much as to motion — consult it whenever a component choice feels like it's missing polish, not only when something animates.
 
 ## Before writing anything
 
