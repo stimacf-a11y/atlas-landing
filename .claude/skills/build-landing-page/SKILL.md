@@ -1,6 +1,6 @@
 ---
 name: build-landing-page
-description: Add a new landing page or microsite to this TanStack Start app, reusing the existing design system, components, and localization pattern instead of starting from scratch. Use when asked to create a new landing page, campaign page, product page, or "otra web"/variant of the site within this repo. Not for editing the existing single-page content (edit src/lib/content/*.ts for that). Holds the result to emil-design-eng's craft bar throughout; any motion is built with the animate skill, checked against review-animations, and — once the page has several animated elements — swept holistically with improve-animations before the page is considered done.
+description: Add a new landing page or microsite to this TanStack Start app, reusing the existing design system, components, and localization pattern instead of starting from scratch. Use when asked to create a new landing page, campaign page, product page, or "otra web"/variant of the site within this repo. Not for editing the existing single-page content (edit src/lib/content/*.ts for that). When the design direction is genuinely undecided, explore it with the prototype skill before committing. Holds the result to emil-design-eng's craft bar throughout; any motion is built with the animate skill, checked against review-animations, and — once the page has several animated elements — swept holistically with improve-animations before the page is considered done.
 ---
 
 # Building a New Landing Page in This Repo
@@ -30,6 +30,7 @@ Ask (or infer from the request) before writing code:
 1. **Does it need its own content type, or is it copy variations of the existing sections?** If it's a genuinely different page (different sections/purpose), it needs its own `SiteContent`-like type and its own `en.ts`/`es.ts`/`de.ts` files (e.g. `src/lib/content/promo/`), not entries bolted onto the existing `SiteContent`.
 2. **Does it need all three locales, or just one?** Don't scaffold `de.tsx`/`en.tsx` files for a page that's Spanish-only — only add the locale routes actually requested.
 3. **Does it share the domain, or is it truly a separate site?** This app deploys as one Cloud Run service from one `cloudbuild.yaml`. A new route under the same app is cheap; a genuinely separate site (different repo/deploy) is a much bigger ask — flag that distinction if the user's request implies the latter.
+4. **Is the look genuinely undecided?** If the request is "build a promo page" with no stated direction for its hero or a key section — not just missing copy, but an open design question — don't guess one direction and build it straight into the route. Use the `prototype` skill (explicit invocation only) to stand up 2–3 named variants behind its picker, each meeting the same design bar below, and let the user pick before it gets promoted into `src/routes/`. If the brief already specifies the direction (or it's just reusing the existing homepage's sections), skip straight to the build sequence.
 
 ## Build sequence
 
