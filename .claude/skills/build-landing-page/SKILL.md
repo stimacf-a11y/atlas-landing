@@ -1,6 +1,6 @@
 ---
 name: build-landing-page
-description: Add a new landing page or microsite to this TanStack Start app, reusing the existing design system, components, and localization pattern instead of starting from scratch. Use when asked to create a new landing page, campaign page, product page, or "otra web"/variant of the site within this repo. Not for editing the existing single-page content (edit src/lib/content/*.ts for that) and not for animation work (use the animate skill).
+description: Add a new landing page or microsite to this TanStack Start app, reusing the existing design system, components, and localization pattern instead of starting from scratch. Use when asked to create a new landing page, campaign page, product page, or "otra web"/variant of the site within this repo. Not for editing the existing single-page content (edit src/lib/content/*.ts for that). Any motion the new page needs is built with the animate skill and checked against review-animations before the page is considered done.
 ---
 
 # Building a New Landing Page in This Repo
@@ -35,6 +35,7 @@ Ask (or infer from the request) before writing code:
 4. **Locale routes** (only if multi-locale was asked for): thin files like `src/routes/en.tsx` that just re-export the same page component with a different `localeHead(locale)` — follow the existing `en.tsx`/`de.tsx` pattern exactly (`export const Route = createFileRoute("/en")({ head: () => localeHead("en"), component: HomePage })`).
 5. **Sitemap**: add the new path(s) to `URLS` (and `IMAGES` if relevant) in `src/routes/sitemap[.]xml.ts`.
 6. **Nav/links**: if the new page should be reachable from the existing site, add a link where it makes sense (nav, footer) — don't leave it orphaned unless it's meant to be a standalone landing page for ads/campaigns.
+7. **Motion, if any**: if the page needs an entrance, a CTA, or any transition beyond a plain `hover:`/`transition-colors` swap, use the `animate` skill to build it rather than approximating a curve or duration by feel. Once written, run it through `review-animations` before considering the page done — it checks the ten non-negotiable standards (justified motion, frequency-appropriate, `ease-out` on entrances, sub-300ms UI, correct transform-origin, GPU-only properties, `prefers-reduced-motion`, etc.) and will block anything that doesn't clear the bar. A page with no motion at all is a valid, often correct outcome — don't invent animation just to have something to review.
 
 ## Validate before calling it done
 
@@ -44,4 +45,4 @@ bun run build   # catches route-tree/type errors TanStack Start won't tell you a
 bun run dev     # visually check the new route(s) in the browser, all requested locales
 ```
 
-Check in the browser: the hero renders, `GlassCta`/`HeroBackground` degrade correctly on mobile (resize the viewport), and `head()` meta tags are present (view page source or devtools `<head>`).
+Check in the browser: the hero renders, `GlassCta`/`HeroBackground` degrade correctly on mobile (resize the viewport), and `head()` meta tags are present (view page source or devtools `<head>`). If the page has any motion, `review-animations` must have signed off (Approve, not Block) before the page ships.
