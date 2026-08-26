@@ -1,6 +1,6 @@
 ---
 name: build-landing-page
-description: Add a new landing page or microsite to this TanStack Start app, reusing the existing design system, components, and localization pattern instead of starting from scratch. Use when asked to create a new landing page, campaign page, product page, or "otra web"/variant of the site within this repo. Not for editing the existing single-page content (edit src/lib/content/*.ts for that). When the design direction is genuinely undecided, explore it with the prototype skill before committing. Holds the result to emil-design-eng's craft bar throughout; any motion is built with the animate skill, checked against review-animations, and — once the page has several animated elements — swept holistically with improve-animations before the page is considered done.
+description: Add a new landing page or microsite to this TanStack Start app, reusing the existing design system, components, and localization pattern instead of starting from scratch. Use when asked to create a new landing page, campaign page, product page, or "otra web"/variant of the site within this repo. Not for editing the existing single-page content (edit src/lib/content/*.ts for that). When the design direction is genuinely undecided, explore it with the prototype skill before committing. Holds the result to emil-design-eng's and apple-design's craft bar throughout (translucent materials, typography, gesture interruptibility where relevant); any motion is built with the animate skill, checked against review-animations, and — once the page has several animated elements — swept holistically with improve-animations before the page is considered done.
 ---
 
 # Building a New Landing Page in This Repo
@@ -10,6 +10,8 @@ This repo (`atlas-landing`) is a single TanStack Start app that currently serves
 ## Design bar
 
 Hold the new page to `emil-design-eng`'s craft philosophy throughout, not just at review time: every pressable element gets `:active` press feedback (`scale(0.97)`, never a static button), nothing enters from `scale(0)`, popovers/tooltips scale from their trigger, and the unseen details (asymmetric enter/exit timing, blur to mask an awkward crossfade, stagger on group entrances) are what separate "it works" from "it feels right." This applies to layout and component decisions as much as to motion — consult it whenever a component choice feels like it's missing polish, not only when something animates.
+
+For two things this repo already leans on, go to `apple-design` specifically: **translucent materials** (§12 — the existing `GlassCta`/`LiquidGlassCta` pattern is exactly this; a new page reusing or extending it should follow the material-weight and vibrancy rules there, not improvise new blur/opacity values) and **typography** (§15 — tracking and leading are size-specific, never one fixed `letter-spacing` across a heading and its body copy). If a new page adds anything gesture-driven (a drag, a swipe-to-dismiss sheet, a mobile nav drawer) that this site doesn't have today, `apple-design`'s interruptibility and velocity-handoff rules (§3–6) apply in full — springs that carry velocity through a re-target, never a fixed-duration tween for something a user can grab.
 
 ## Before writing anything
 
